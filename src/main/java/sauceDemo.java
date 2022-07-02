@@ -1,9 +1,8 @@
-import org.checkerframework.checker.fenum.qual.SwingTitleJustification;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class sauceDemo extends beforeafter{
+public class sauceDemo extends BeforeAfter {
     @Test
     public void sauceKetchup() throws InterruptedException{
         driver.get("https://saucedemo.com"); //1-2
