@@ -140,41 +140,54 @@ public class cobaBooking extends BeforeAfter {
                 System.out.println("---- Tidak ada kamar di cart -----");
             }
 
-//        driver.findElement(By.xpath("//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a")).click();
-//        System.out.println("---- User success melakukan pemilihan kamar -----");
-//
-//            //verify halaman pengisian alamat
-//            if (driver.getPageSource().contains("Your addresses")){
-//                System.out.println("---- User mengisi alamat -----");
-//            } else {
-//                System.out.println("---- Gagal memuat halaman -----");
-//            }
-//
-//        //user mengisi data alamat
-//        driver.findElement(By.id("firstname")).sendKeys("Lala");
-//        driver.findElement(By.id("lastname")).sendKeys("Teletabis");
-//        driver.findElement(By.id("address1")).sendKeys("Bandung");
-//        driver.findElement(By.id("postcode")).sendKeys("55861");
-//        driver.findElement(By.id("city")).sendKeys("Bandung");
-//
-//        driver.findElement(By.id("uniform-id_state")).click();          //pilih state/kota
-//        WebElement element = driver.findElement(By.id("id_state"));
-//        Select sel = new Select(element);
-//        sel.selectByValue("259");                                       //isinya west java
-//        Thread.sleep(3000);
-//
-//        driver.findElement(By.id("id_country")).click();
-//        driver.findElement(By.id("phone_mobile")).sendKeys("085233449876");
-//        driver.findElement(By.id("alias")).sendKeys("Alamat rumah");
-//        driver.findElement(By.id("submitAddress")).click();
-//        System.out.println("---- User Sukses Mengisi Alamat -----");
-//
-//        //User mengkonfirmasi pemesanan
-//        driver.findElement(By.xpath("//*[@id=\"collapse-shopping-cart\"]/div/div[2]/div[2]/div/a")).click();
-//        driver.findElement(By.xpath("//*[@id=\"collapse-guest-info\"]/div/div[4]/div/a")).click();
-//        driver.findElement(By.id("cgv")).click();
-//        Thread.sleep(3000);
-//        System.out.println("---- CEK 4 -----");
+        driver.findElement(By.xpath("//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a")).click();
+        System.out.println("---- User success melakukan pemilihan kamar -----");
+
+            //verify halaman pengisian alamat
+            if (driver.getPageSource().contains("Your addresses")){
+                System.out.println("---- User harus mengisi alamat -----");
+            } else {
+                System.out.println("---- Gagal memuat halaman -----");
+            }
+
+        //user mengisi data alamat
+        driver.findElement(By.id("firstname")).sendKeys("Lala");
+        driver.findElement(By.id("lastname")).sendKeys("Teletabis");
+        driver.findElement(By.id("address1")).sendKeys("Bandung");
+        driver.findElement(By.id("postcode")).sendKeys("55861");
+        driver.findElement(By.id("city")).sendKeys("Bandung");
+
+        driver.findElement(By.id("uniform-id_state")).click();          //pilih state/kota
+        WebElement element = driver.findElement(By.id("id_state"));
+        Select sel = new Select(element);
+        sel.selectByValue("259");                                       //isinya west java
+        Thread.sleep(3000);
+
+        driver.findElement(By.id("id_country")).click();
+        driver.findElement(By.id("phone_mobile")).sendKeys("085233449876");
+        driver.findElement(By.id("alias")).sendKeys("Alamat rumah");
+        driver.findElement(By.id("submitAddress")).click();
+
+            //verif setelah mengisi alamat
+            String expected_checkout = "Rooms & Price Summary";
+            String actual_checkout = driver.findElement(By.xpath("//*[@id=\"shopping-cart-summary-head\"]/h5/span")).getText();
+            System.out.println("Halaman :" +actual_checkout);
+            if (Objects.equals(actual_checkout, expected_checkout)){
+                System.out.println("Halaman Details Pembayaran Sudah Sesuai");
+            } else {
+                System.out.println("Halaman Belum Termuat");
+            }
+
+        System.out.println("---- User Sukses Mengisi Alamat -----");
+
+        //User mengkonfirmasi pemesanan
+        driver.findElement(By.xpath("//*[@id=\"collapse-shopping-cart\"]/div/div[2]/div[2]/div/a")).click();
+
+
+        driver.findElement(By.xpath("//*[@id=\"collapse-guest-info\"]/div/div[4]/div/a")).click();
+        driver.findElement(By.id("cgv")).click();
+        Thread.sleep(3000);
+        System.out.println("---- CEK 4 -----");
 //
 //        //User memilih pembayaran
 //        driver.findElement(By.xpath("//*[@id=\"HOOK_PAYMENT\"]/div[1]/div/p/a")).click();
