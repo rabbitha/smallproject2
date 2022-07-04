@@ -1,3 +1,5 @@
+import org.asynchttpclient.util.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -35,7 +37,7 @@ public class cobaBooking extends BeforeAfter {
             }
 
         //user masuk ke akun website booking hotel
-        driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[7]/ul/li/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[7]/ul/li/a")).click();     //sign in
 
             //verify halaman login, tulisan "ALREADY REGISTERED?" muncul atau tidak
             if (driver.getPageSource().contains("Already registered?")){
@@ -56,7 +58,6 @@ public class cobaBooking extends BeforeAfter {
             String expected_login = "http://qa.cilsy.id:8080/en/my-account";
             String actual_login = driver.getCurrentUrl();
             assertEquals(actual_login, expected_login);
-            System.out.println("Sekarang berada di URL: " + actual_login);
             System.out.println("---- URL sudah susuai dengan expected result ----");
 
 
@@ -75,15 +76,26 @@ public class cobaBooking extends BeforeAfter {
 
         driver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li/a")).click();   //button home kembali ke halaman awal
 
+        System.out.println("---- CEK ----");
         //user melakukan pencarian hotel
         driver.findElement(By.id("hotel_location")).sendKeys("Jakarta");
         driver.findElement(By.id("id_hotel_button")).click();
         driver.findElement(By.xpath("//*[@id=\"search_hotel_block_form\"]/div[2]/div/ul")).click();
+
         driver.findElement(By.id("check_in_time")).click();
-        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[4]/td[4]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[1]/td[6]/a")).click();
+        System.out.println("---- CEK 2----");
+
+
+
         driver.findElement(By.id("check_out_time")).click();
-        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[4]/td[5]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[1]/td[7]/a")).click();
         driver.findElement(By.id("search_room_submit")).click();
+        Thread.sleep(3000);
 
             //verif pilihan kamar yang muncul
             if (driver.getPageSource().contains("General Rooms")){
@@ -151,7 +163,9 @@ public class cobaBooking extends BeforeAfter {
             }
 
         //user mengisi data alamat
+        driver.findElement(By.id("firstname")).clear();                         //menghaopus isi yang sudah terinput
         driver.findElement(By.id("firstname")).sendKeys("Lala");
+        driver.findElement(By.id("lastname")).clear();
         driver.findElement(By.id("lastname")).sendKeys("Teletabis");
         driver.findElement(By.id("address1")).sendKeys("Bandung");
         driver.findElement(By.id("postcode")).sendKeys("55861");
@@ -159,8 +173,8 @@ public class cobaBooking extends BeforeAfter {
 
         driver.findElement(By.id("uniform-id_state")).click();          //pilih state/kota
         WebElement element = driver.findElement(By.id("id_state"));
-        Select sel = new Select(element);
-        sel.selectByValue("259");                                       //isinya west java
+        Select state = new Select(element);
+        state.selectByValue("259");                                       //isinya west java
         Thread.sleep(3000);
 
         driver.findElement(By.id("id_country")).click();
@@ -183,21 +197,31 @@ public class cobaBooking extends BeforeAfter {
         //User mengkonfirmasi pemesanan
         driver.findElement(By.xpath("//*[@id=\"collapse-shopping-cart\"]/div/div[2]/div[2]/div/a")).click();
 
+            //verify ROOM INFORMATION
+            String expected_room_order = "luxury Rooms";
+            String actual_room_order = driver.findElement(By.xpath("//*[@id=\"collapse-shopping-cart\"]/div/div[2]/div[1]/div[2]/div[1]/div[2]/p[1]/a[1]")).getText();
+            System.out.println("Kamar yang dipilih :" +actual_room);
+            if (Objects.equals(actual_room, expected_room)){
+                System.out.println("Pilihan kamar sudah sesuai");
+            } else {
+                System.out.println("Salah memilih kamar");
+            }
+
 
         driver.findElement(By.xpath("//*[@id=\"collapse-guest-info\"]/div/div[4]/div/a")).click();
         driver.findElement(By.id("cgv")).click();
         Thread.sleep(3000);
         System.out.println("---- CEK 4 -----");
-//
-//        //User memilih pembayaran
-//        driver.findElement(By.xpath("//*[@id=\"HOOK_PAYMENT\"]/div[1]/div/p/a")).click();
-//        driver.findElement(By.xpath("//*[@id=\"cart_navigation\"]/button")).click();
-//        System.out.println("---- CEK 5 -----");
-//
-//        //User melihat invoice pembayaran & order history
-//        driver.findElement(By.xpath("//*[@id=\"center_column\"]/p/a")).click();
-//        driver.findElement(By.className("footable-toggle")).click();
-//        System.out.println("---- CEK 6 -----");
+
+        //User memilih pembayaran
+        driver.findElement(By.xpath("//*[@id=\"HOOK_PAYMENT\"]/div[1]/div/p/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"cart_navigation\"]/button")).click();
+        System.out.println("---- CEK 5 -----");
+
+        //User melihat invoice pembayaran & order history
+        driver.findElement(By.xpath("//*[@id=\"center_column\"]/p/a")).click();
+        driver.findElement(By.className("footable-toggle")).click();
+        System.out.println("---- CEK 6 -----");
 
     }
 }
