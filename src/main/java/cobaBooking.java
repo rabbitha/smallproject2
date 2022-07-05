@@ -36,6 +36,8 @@ public class cobaBooking extends BeforeAfter {
                 System.out.println("---- Element Sign In tidak muncul ----");
             }
 
+        driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[7]/ul/li/a")).click();
+
         //user masuk ke akun website booking hotel
         driver.findElement(By.xpath("//*[@id=\"header\"]/div[3]/div/div/div[7]/ul/li/a")).click();     //sign in
 
@@ -128,7 +130,6 @@ public class cobaBooking extends BeforeAfter {
             //verif pilihan kamar yang muncul
             String expected_room = "luxury Rooms - The Hotel Prime";
             String actual_room = driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/div[1]/div[1]/div[1]/div[1]/span")).getText();
-            System.out.println("Kamar yang dipilih :" +actual_room);
             if (Objects.equals(actual_room, expected_room)){
                 System.out.println("Pilihan kamar sudah sesuai");
             } else {
@@ -146,7 +147,9 @@ public class cobaBooking extends BeforeAfter {
         Thread.sleep(3000);
 
             //verify popup halaman success add to cart
-            if (driver.getPageSource().contains("Room successfully added to your cart")){
+            String expected_room_cart = "Room successfully added to your cart";
+            String actual_room_cart = driver.findElement(By.xpath(" //*[@id=\"layer_cart\"]/div[1]/div[1]/h2/text()")).getText();
+            if (Objects.equals(actual_room_cart,expected_room_cart)){
                 System.out.println("---- Success memasukkan kamar pada cart -----");
             } else {
                 System.out.println("---- Tidak ada kamar di cart -----");
@@ -185,7 +188,6 @@ public class cobaBooking extends BeforeAfter {
             //verif setelah mengisi alamat
             String expected_checkout = "Rooms & Price Summary";
             String actual_checkout = driver.findElement(By.xpath("//*[@id=\"shopping-cart-summary-head\"]/h5/span")).getText();
-            System.out.println("Halaman :" +actual_checkout);
             if (Objects.equals(actual_checkout, expected_checkout)){
                 System.out.println("Halaman Details Pembayaran Sudah Sesuai");
             } else {
