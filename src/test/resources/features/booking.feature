@@ -23,9 +23,3 @@ Feature: User booking hotel
     And User Choose hotel Room more than one type room
     And User confirm order hotel room
     Then User get invoice order and user view order history
-
-  Scenario: User create account
-    Given User Access Website For Create Account
-    When User Create Account
-    And User input addreess
-    Then User have account
