@@ -15,7 +15,6 @@ public class RegisterAccount extends BeforeAfter{
         driver.findElement(By.id("email_create")).sendKeys("a1@testing.com");
         driver.findElement(By.id("SubmitCreate")).click();
         Thread.sleep(3000);
-        System.out.println("---- User berhasil membuat akun ----");
 
         WebElement gender_mr = driver.findElement(By.id("id_gender1"));
         WebElement gender_mrs = driver.findElement(By.id("id_gender2"));
@@ -77,13 +76,5 @@ public class RegisterAccount extends BeforeAfter{
         } else {
             System.out.println("---- User belum berada di halaman akun -----");;
         }
-
-
-
-
-
-
-
-
     }
 }

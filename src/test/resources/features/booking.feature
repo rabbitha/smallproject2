@@ -1,6 +1,6 @@
 Feature: User booking hotel
 
-  Scenario Outline: User booking hotel with login
+  Scenario: User booking hotel with login
     Given User access website
     When User log in using the account that has been created
     And User choose hotel
@@ -8,3 +8,16 @@ Feature: User booking hotel
     And User fill in address
     And User confirm order
     Then User get invoice and user view order history
+
+  Scenario: User booking hotel without login
+    Given User Access website
+    When User Choose Hotel
+    And User Choose Hotel Room and add more rooms
+    And User Confirm order
+    Then User get invoice and User view order history
+
+  Scenario: User create account
+    Given User Access Website For Create Account
+    When User Create Account
+    And User input addreess
+    Then User have account
