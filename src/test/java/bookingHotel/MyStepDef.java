@@ -90,10 +90,10 @@ public class MyStepDef {
             driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
             in++;
         }
-        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[1]/td[6]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[2]/td[6]/a")).click();
 
         driver.findElement(By.id("check_out_time")).click();
-        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[1]/td[7]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[2]/td[7]/a")).click();
 
         driver.findElement(By.id("search_room_submit")).click();
 
@@ -292,7 +292,7 @@ public class MyStepDef {
 
         driver.findElement(By.id("check_in_time")).click();
         int in = 1;                                                         //buat ganti bulan
-        while (in<15) {
+        while (in<12) {
             driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/div/a[2]")).click();
             in++;
         }
