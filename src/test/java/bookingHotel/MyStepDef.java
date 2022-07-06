@@ -171,6 +171,7 @@ public class MyStepDef {
 
         driver.findElement(By.id("id_country")).click();
         driver.findElement(By.id("phone_mobile")).sendKeys("085233449876");
+        driver.findElement(By.id("alias")).clear();
         driver.findElement(By.id("alias")).sendKeys("Alamat rumah");
         driver.findElement(By.id("submitAddress")).click();
         System.out.println("---- User Sukses Mengisi Alamat -----");
@@ -684,9 +685,9 @@ public class MyStepDef {
 
         //user mengisi data diri
         driver.findElement(By.id("customer_firstname")).sendKeys("Lala");
-        driver.findElement(By.id("customer_lastname")).sendKeys("Teletubies");
+        driver.findElement(By.id("customer_lastname")).sendKeys("Yellow");
         driver.findElement(By.id("email")).clear();                                        //menghapus isi yang sudah ada masukkan
-        driver.findElement(By.id("email")).sendKeys("pipii@testing.com");
+        driver.findElement(By.id("email")).sendKeys("bba@testing.com");
         driver.findElement(By.id("passwd")).sendKeys("upackanhalo");
 
         //memilih dropdown tanggal lahir
@@ -730,17 +731,46 @@ public class MyStepDef {
     @And("User input addreess")
     public void userInputAddreess() {
 
-        WebDriverWait wait = new WebDriverWait (driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("///*[@id=\"center_column\"]/div/div/ul/li[1]/a")));
+        WebDriverWait wait = new WebDriverWait (driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"center_column\"]/div/div/ul/li[1]/a/span")));
 
-        driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/ul/li[1]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/ul/li[1]/a/span")).click();
+
+        driver.findElement(By.id("firstname")).clear();                         //menghaopus isi yang sudah terinput
+        driver.findElement(By.id("firstname")).sendKeys("Lala");
+        driver.findElement(By.id("lastname")).clear();
+        driver.findElement(By.id("lastname")).sendKeys("Teletubies");
+        driver.findElement(By.id("address1")).sendKeys("Yogyakarta");
+        driver.findElement(By.id("postcode")).sendKeys("55861");
+        driver.findElement(By.id("city")).sendKeys("Yogyakarta");
+
+        driver.findElement(By.id("uniform-id_state")).click();          //pilih state/kota
+        WebElement element = driver.findElement(By.id("id_state"));
+        Select state = new Select(element);
+        state.selectByValue("265");                                       //isinya Yogyakarta
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"uniform-id_state\"]/span")));
+
+        driver.findElement(By.id("id_country")).click();
+        driver.findElement(By.id("phone_mobile")).sendKeys("085233449876");
+        driver.findElement(By.id("alias")).clear();
+        driver.findElement(By.id("alias")).sendKeys("Alamat rumah");
+        driver.findElement(By.id("submitAddress")).click();
+        System.out.println("---- User Sukses Mengisi Alamat -----");
     }
 
     @Then("User have account")
     public void userHaveAccount() {
+        WebDriverWait wait = new WebDriverWait (driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/a/span")));
 
+        driver.findElement(By.xpath("//*[@id=\"center_column\"]/ul/li[1]/a/span")).click();          //back to halaman account
+
+        boolean create_account = driver.findElement(By.xpath("//*[@id=\"center_column\"]/p[1]")).isDisplayed();
+        if (create_account){
+            System.out.println("---- Ayo lengkapi profilmu -----");
+        } else {
+            System.out.println("---- Yeay Akhirnya punya akun -----");
+        }
     }
-
-
-
 }
